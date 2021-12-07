@@ -1,14 +1,21 @@
 from django.shortcuts import render
-from blog.models import BlogPost
+from django.template.response import TemplateResponse
+from .models import BlogPost
 
 
 def archive(request):
     posts = BlogPost.objects.all()
-    for post in posts:
-        post = {
-            'title': post.title,
-            'timestamp': post.timestamp,
-            'body': post.body
-        }
-    return render(request, 'archive.html')
+    ctx = {
+        'posts': posts
+    }
+    return TemplateResponse(request, 'archive.html', ctx)
+
+
+def archive1(request):
+    posts = BlogPost.objects.all()
+    ctx = {
+        'posts': posts
+    }
+    return render(request, 'archive1.html', ctx)
+
 
